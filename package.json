@@ -1,5 +1,5 @@
 {
-  "name": "MyPlants",
+  "name": "myplants-root",
   "private": true,
   "workspaces": [
     "packages/*"
