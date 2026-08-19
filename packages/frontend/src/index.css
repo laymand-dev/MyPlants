@@ -1,12 +1,11 @@
 @import "tailwindcss";
-@import "shadcn/tailwind.css";
 @import "@fontsource-variable/inter";
 @import "@fontsource/lora/600.css";
 
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* ===== Sage Nature — Light (design.md §4.1) ===== */
+  /* ===== Sage Nature — базовые токены (design-tokens.css) ===== */
   --background: #f7f4ec;
   --surface: #fffdf8;
   --surface-muted: #f0ece1;
@@ -29,32 +28,50 @@
   --health-4: #7fa46a;
   --health-5: #4f7855;
 
+  /* ===== Semantic aliases (design-tokens.css, строгий контракт §4.1.1) ===== */
+  --app-background: var(--background);
+  --sidebar-background: var(--background);
+  --sidebar-border: var(--border-soft);
+  --sidebar-text: var(--text);
+  --sidebar-text-muted: var(--text-muted);
+  --sidebar-active-bg: var(--primary);
+  --sidebar-active-text: var(--surface);
+  --sidebar-icon: var(--deep-green);
+  --card-background: var(--surface);
+  --card-muted-background: var(--surface-muted);
+  --selected-background: var(--surface-sage);
+  --primary-foreground: var(--surface);
+  --focus-ring: var(--secondary-green);
+  --destructive: var(--health-1);
+  --event-water: var(--secondary-green);
+  --event-fertilize: var(--warm-accent);
+  --event-repot: var(--primary);
+  --event-custom: var(--text-muted);
+
   /* ===== Radius scale (design.md §10) ===== */
   --radius: 0.625rem; /* 10px — input/button */
   --radius-card: 1rem; /* 16px — standard card */
   --radius-card-lg: 1.25rem; /* 20px — large card / modal */
 
-  /* ===== shadcn semantic layer — переиспользует токены выше ===== */
+  /* ===== shadcn bridge — НЕТ в design-tokens.css, добавлено для совместимости с shadcn/ui ===== */
   --foreground: var(--text);
-  --card: var(--surface);
+  --card: var(--card-background);
   --card-foreground: var(--text);
-  --popover: var(--surface);
+  --popover: var(--card-background);
   --popover-foreground: var(--text);
-  --primary-foreground: var(--surface);
-  --secondary: var(--surface-sage);
+  --secondary: var(--selected-background);
   --secondary-foreground: var(--text);
-  --muted: var(--surface-muted);
+  --muted: var(--card-muted-background);
   --muted-foreground: var(--text-muted);
-  --accent: var(--primary-soft);
+  --accent: var(--selected-background);
   --accent-foreground: var(--text);
-  --destructive: var(--health-1);
   --destructive-foreground: var(--surface);
   --input: var(--border);
-  --ring: var(--primary);
+  --ring: var(--focus-ring);
 }
 
 .dark {
-  /* ===== Sage Nature — Dark (design.md §4.2) ===== */
+  /* ===== Sage Nature — Dark (design-tokens.css) ===== */
   --background: #151b16;
   --surface: #1d261e;
   --surface-muted: #232d24;
@@ -67,31 +84,121 @@
   --primary-hover: #a2b87f;
   --primary-soft: #35452f;
   --secondary-green: #6e8662;
-  --deep-green: #425139;
   --warm-accent: #d0ab68;
 
-  --foreground: var(--text);
-  --card: var(--surface);
-  --card-foreground: var(--text);
-  --popover: var(--surface);
-  --popover-foreground: var(--text);
+  --app-background: var(--background);
+  --sidebar-background: var(--background);
+  --sidebar-border: var(--border-soft);
+  --sidebar-text: var(--text);
+  --sidebar-text-muted: var(--text-muted);
+  --sidebar-active-bg: var(--surface-sage);
+  --sidebar-active-text: var(--text);
+  --sidebar-icon: var(--primary);
+  --card-background: var(--surface);
+  --card-muted-background: var(--surface-muted);
+  --selected-background: var(--surface-sage);
   --primary-foreground: var(--background);
-  --secondary: var(--surface-sage);
-  --secondary-foreground: var(--text);
-  --muted: var(--surface-muted);
-  --muted-foreground: var(--text-muted);
-  --accent: var(--primary-soft);
-  --accent-foreground: var(--text);
+  --focus-ring: var(--secondary-green);
   --destructive: var(--health-1);
+  --event-water: var(--secondary-green);
+  --event-fertilize: var(--warm-accent);
+  --event-repot: var(--primary);
+  --event-custom: var(--text-muted);
+
+  --foreground: var(--text);
+  --card: var(--card-background);
+  --card-foreground: var(--text);
+  --popover: var(--card-background);
+  --popover-foreground: var(--text);
+  --secondary: var(--selected-background);
+  --secondary-foreground: var(--text);
+  --muted: var(--card-muted-background);
+  --muted-foreground: var(--text-muted);
+  --accent: var(--selected-background);
+  --accent-foreground: var(--text);
   --destructive-foreground: var(--text);
   --input: var(--border);
-  --ring: var(--primary);
+  --ring: var(--focus-ring);
 }
 
-@theme {
+@theme inline {
+  --font-sans: "InterVariable", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Lora", ui-serif, serif;
+
+  /* базовые токены → bg-background, text-text, bg-surface... */
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-sage: var(--surface-sage);
+  --color-border: var(--border);
+  --color-border-soft: var(--border-soft);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-soft: var(--primary-soft);
+  --color-secondary-green: var(--secondary-green);
+  --color-deep-green: var(--deep-green);
+  --color-warm-accent: var(--warm-accent);
+
+  /* health-цвета → bg-health-1 ... bg-health-5 */
+  --color-health-1: var(--health-1);
+  --color-health-2: var(--health-2);
+  --color-health-3: var(--health-3);
+  --color-health-4: var(--health-4);
+  --color-health-5: var(--health-5);
+
+  /* semantic-токены → bg-sidebar-active-bg, text-sidebar-text, bg-card-background... */
+  --color-app-background: var(--app-background);
+  --color-sidebar-background: var(--sidebar-background);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-text: var(--sidebar-text);
+  --color-sidebar-text-muted: var(--sidebar-text-muted);
+  --color-sidebar-active-bg: var(--sidebar-active-bg);
+  --color-sidebar-active-text: var(--sidebar-active-text);
+  --color-sidebar-icon: var(--sidebar-icon);
+  --color-card-background: var(--card-background);
+  --color-card-muted-background: var(--card-muted-background);
+  --color-selected-background: var(--selected-background);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-focus-ring: var(--focus-ring);
+  --color-destructive: var(--destructive);
+
+  /* event-цвета → bg-event-water, text-event-fertilize... */
+  --color-event-water: var(--event-water);
+  --color-event-fertilize: var(--event-fertilize);
+  --color-event-repot: var(--event-repot);
+  --color-event-custom: var(--event-custom);
+
+  /* shadcn bridge → bg-card, bg-popover, bg-muted, bg-accent, border-input, ring-ring */
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* radius: rounded-sm...rounded-2xl */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius-card);
+  --radius-2xl: var(--radius-card-lg);
+
+  /* тени (design.md §11) */
   --shadow-card:
     0 1px 2px rgba(30, 40, 28, 0.04), 0 6px 18px rgba(30, 40, 28, 0.05);
   --shadow-floating: 0 8px 30px rgba(30, 40, 28, 0.1);
+
+  /* z-index (design.md §47) */
   --z-index-base: 0;
   --z-index-sticky: 20;
   --z-index-bottom-nav: 30;
@@ -101,64 +208,12 @@
   --z-index-toast: 70;
 }
 
-@theme inline {
-  --font-sans: "InterVariable", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Lora", ui-serif, serif;
-
-  /* shadcn-совместимые классы: bg-background, text-foreground, bg-card... */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-
-  /* твои токены Sage Nature, которых нет в стандартном наборе shadcn */
-  --color-surface: var(--surface);
-  --color-surface-muted: var(--surface-muted);
-  --color-surface-sage: var(--surface-sage);
-  --color-border-soft: var(--border-soft);
-  --color-text-muted: var(--text-muted);
-  --color-primary-hover: var(--primary-hover);
-  --color-primary-soft: var(--primary-soft);
-  --color-secondary-green: var(--secondary-green);
-  --color-deep-green: var(--deep-green);
-  --color-warm-accent: var(--warm-accent);
-
-  /* health-цвета: bg-health-1 ... bg-health-5 */
-  --color-health-1: var(--health-1);
-  --color-health-2: var(--health-2);
-  --color-health-3: var(--health-3);
-  --color-health-4: var(--health-4);
-  --color-health-5: var(--health-5);
-
-  /* radius: rounded-sm...rounded-2xl */
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: var(--radius-card);
-  --radius-2xl: var(--radius-card-lg);
-}
-
 @layer base {
   * {
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-text font-sans;
   }
 }
 
