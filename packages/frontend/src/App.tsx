@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { PlantForm } from "./Platform";
 import { Plant } from "@myplants/shared";
+import { Button } from "@/components/ui/button";
 
 import "./App.css";
 
@@ -60,13 +61,7 @@ function App() {
             </div>
           ))}
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setFormOpened(true)}
-        >
-          Создать
-        </button>
+        <Button onClick={() => setFormOpened(true)}>Создать</Button>
       </section>
       {formOpened && (
         <PlantForm

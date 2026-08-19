@@ -1,111 +1,227 @@
+@import "tailwindcss";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
+@import "@fontsource/lora/600.css";
+
+@custom-variant dark (&:is(.dark *));
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* ===== Sage Nature — Light (design.md §4.1) ===== */
+  --background: #f7f4ec;
+  --surface: #fffdf8;
+  --surface-muted: #f0ece1;
+  --surface-sage: #e5e9da;
+  --border: #ddd8cb;
+  --border-soft: #e9e5da;
+  --text: #252922;
+  --text-muted: #70766a;
+  --primary: #667a48;
+  --primary-hover: #586b3d;
+  --primary-soft: #dce4cd;
+  --secondary-green: #83966b;
+  --deep-green: #425139;
+  --warm-accent: #c79c52;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  /* ===== Health colors (design.md §5) ===== */
+  --health-1: #d95b4b;
+  --health-2: #e98645;
+  --health-3: #d5a63b;
+  --health-4: #7fa46a;
+  --health-5: #4f7855;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* ===== Radius scale (design.md §10) ===== */
+  --radius: 0.625rem; /* 10px — input/button */
+  --radius-card: 1rem; /* 16px — standard card */
+  --radius-card-lg: 1.25rem; /* 20px — large card / modal */
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
+  /* ===== shadcn semantic layer — переиспользует токены выше ===== */
+  --foreground: var(--text);
+  --card: var(--surface);
+  --card-foreground: var(--text);
+  --popover: var(--surface);
+  --popover-foreground: var(--text);
+  --primary-foreground: var(--surface);
+  --secondary: var(--surface-sage);
+  --secondary-foreground: var(--text);
+  --muted: var(--surface-muted);
+  --muted-foreground: var(--text-muted);
+  --accent: var(--primary-soft);
+  --accent-foreground: var(--text);
+  --destructive: var(--health-1);
+  --destructive-foreground: var(--surface);
+  --input: var(--border);
+  --ring: var(--primary);
+}
+
+.dark {
+  /* ===== Sage Nature — Dark (design.md §4.2) ===== */
+  --background: #151b16;
+  --surface: #1d261e;
+  --surface-muted: #232d24;
+  --surface-sage: #2e3b2f;
+  --border: #354136;
+  --border-soft: #2b352c;
+  --text: #f1f0e8;
+  --text-muted: #aab1a5;
+  --primary: #91a96e;
+  --primary-hover: #a2b87f;
+  --primary-soft: #35452f;
+  --secondary-green: #6e8662;
+  --deep-green: #425139;
+  --warm-accent: #d0ab68;
+
+  --foreground: var(--text);
+  --card: var(--surface);
+  --card-foreground: var(--text);
+  --popover: var(--surface);
+  --popover-foreground: var(--text);
+  --primary-foreground: var(--background);
+  --secondary: var(--surface-sage);
+  --secondary-foreground: var(--text);
+  --muted: var(--surface-muted);
+  --muted-foreground: var(--text-muted);
+  --accent: var(--primary-soft);
+  --accent-foreground: var(--text);
+  --destructive: var(--health-1);
+  --destructive-foreground: var(--text);
+  --input: var(--border);
+  --ring: var(--primary);
+}
+
+@theme {
+  --shadow-card:
+    0 1px 2px rgba(30, 40, 28, 0.04), 0 6px 18px rgba(30, 40, 28, 0.05);
+  --shadow-floating: 0 8px 30px rgba(30, 40, 28, 0.1);
+  --z-index-base: 0;
+  --z-index-sticky: 20;
+  --z-index-bottom-nav: 30;
+  --z-index-dropdown: 40;
+  --z-index-sheet: 50;
+  --z-index-modal: 60;
+  --z-index-toast: 70;
+}
+
+@theme inline {
+  --font-sans: "InterVariable", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Lora", ui-serif, serif;
+
+  /* shadcn-совместимые классы: bg-background, text-foreground, bg-card... */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* твои токены Sage Nature, которых нет в стандартном наборе shadcn */
+  --color-surface: var(--surface);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-sage: var(--surface-sage);
+  --color-border-soft: var(--border-soft);
+  --color-text-muted: var(--text-muted);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-soft: var(--primary-soft);
+  --color-secondary-green: var(--secondary-green);
+  --color-deep-green: var(--deep-green);
+  --color-warm-accent: var(--warm-accent);
+
+  /* health-цвета: bg-health-1 ... bg-health-5 */
+  --color-health-1: var(--health-1);
+  --color-health-2: var(--health-2);
+  --color-health-3: var(--health-3);
+  --color-health-4: var(--health-4);
+  --color-health-5: var(--health-5);
+
+  /* radius: rounded-sm...rounded-2xl */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius-card);
+  --radius-2xl: var(--radius-card-lg);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
+@layer utilities {
+  .text-display {
     font-size: 36px;
-    margin: 20px 0;
+    line-height: 44px;
+    font-weight: 600;
   }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
+  .text-h1 {
+    font-size: 32px;
+    line-height: 40px;
+    font-weight: 600;
+  }
+  .text-h2 {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 600;
+  }
+  .text-h3 {
     font-size: 20px;
+    line-height: 28px;
+    font-weight: 600;
   }
-}
-p {
-  margin: 0;
-}
+  .text-body-lg {
+    font-size: 18px;
+    line-height: 28px;
+    font-weight: 400;
+  }
+  .text-body {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+  }
+  .text-body-md {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+  }
+  .text-small {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+  }
+  .text-small-md {
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+  }
+  .text-caption {
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+  }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
-}
-
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+  @media (max-width: 767px) {
+    .text-h1 {
+      font-size: 28px;
+      line-height: 36px;
+    }
+    .text-h2 {
+      font-size: 22px;
+      line-height: 30px;
+    }
+  }
 }

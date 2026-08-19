@@ -6,6 +6,7 @@ import {
   type CreatePlantDtoInput,
 } from "@myplants/shared";
 import "./PlantForm.css";
+import { Button } from "@/components/ui/button";
 
 interface PlantFormProps {
   defaultValues?: Plant;
@@ -84,9 +85,9 @@ function PlantForm({ defaultValues, onClose, onCreated }: PlantFormProps) {
         </label>
 
         <div className="plant-form-actions">
-          <button type="button" onClick={onClose} disabled={isSubmitting}>
+          <Button onClick={onClose} disabled={isSubmitting}>
             Отмена
-          </button>
+          </Button>
           <button type="submit" disabled={isSubmitting}>
             {isSubmitting ? "Сохраняем…" : "Создать"}
           </button>
