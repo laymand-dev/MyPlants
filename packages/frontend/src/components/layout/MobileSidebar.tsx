@@ -23,7 +23,7 @@ export function MobileSidebar() {
             </div>
             <NavList />
           </div>
-          <div className="h-200 bg-[url(@/assets/dashboard-sidebar-background.png)] bg-bottom-left bg-no-repeat bg-contain w-100" />
+          <div className="h-200 bg-[url(@/assets/dashboard-sidebar-background.png)] bg-bottom-left bg-no-repeat bg-contain w-full" />
         </SheetContent>
       </Sheet>
     </header>

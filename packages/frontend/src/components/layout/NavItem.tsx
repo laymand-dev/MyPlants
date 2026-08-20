@@ -15,7 +15,7 @@ export function NavItem({ to, Icon, label }: NavItemProps) {
 
   return (
     <div
-      className={`grid grid-flow-col auto-cols-max p-3 ${isCurrentPath ? "bg-sidebar-active-bg" : ""} rounded-xl`}
+      className={`grid grid-flow-col auto-cols-max p-2 ${isCurrentPath ? "bg-sidebar-active-bg" : ""} rounded-xl`}
       onClick={handleItemClick}
     >
       <Icon

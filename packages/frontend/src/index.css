@@ -1,155 +1,203 @@
 @import "tailwindcss";
 @import "@fontsource-variable/inter";
-@import "@fontsource/lora/600.css";
-
-@custom-variant dark (&:is(.dark *));
+@import "@fontsource/lora/500.css";
 
 :root {
-  /* ===== Sage Nature — базовые токены (design-tokens.css) ===== */
-  --background: #f7f4ec;
-  --surface: #fffdf8;
-  --surface-muted: #f0ece1;
-  --surface-sage: #e5e9da;
-  --border: #ddd8cb;
-  --border-soft: #e9e5da;
-  --text: #252922;
-  --text-muted: #70766a;
-  --primary: #667a48;
-  --primary-hover: #586b3d;
-  --primary-soft: #dce4cd;
-  --secondary-green: #83966b;
-  --deep-green: #425139;
-  --warm-accent: #c79c52;
+  /* ===== MyPlants â€” Botanical Editorial / canonical light palette ===== */
+  --background: #faf9f5;
+  --background-main: #fdfcf9;
+  --sidebar: #f8f7f3;
 
-  /* ===== Health colors (design.md §5) ===== */
-  --health-1: #d95b4b;
-  --health-2: #e98645;
-  --health-3: #d5a63b;
-  --health-4: #7fa46a;
-  --health-5: #4f7855;
+  --surface: #fffdfb;
+  --surface-strong: #ffffff;
+  --surface-muted: #f7f5f0;
+  --surface-sage: #eef1e6;
+  --surface-sage-active: #e7ecd9;
 
-  /* ===== Semantic aliases (design-tokens.css, строгий контракт §4.1.1) ===== */
+  --border: #e4dfd5;
+  --border-soft: #ece8df;
+
+  --text: #252820;
+  --text-secondary: #62645d;
+  --text-muted: #7b7c75;
+
+  --primary: #63733a;
+  --primary-hover: #566632;
+  --primary-pressed: #4b5b2b;
+  --deep-green: #4e612f;
+  --secondary-green: #829263;
+  --primary-soft: #edf1e3;
+
+  --water: #3d86a8;
+  --warm-accent: #e9a10b;
+  --warning: #f07f19;
+  --danger: #d94c3d;
+  --overlay: rgba(29, 31, 25, 0.46);
+
+  /* ===== Health score ===== */
+  --health-1: #d94c3d;
+  --health-1-soft: #fcebe8;
+  --health-2: #e87525;
+  --health-2-soft: #fff0e6;
+  --health-3: #d79a08;
+  --health-3-soft: #fff5da;
+  --health-4: #66813e;
+  --health-4-soft: #edf2e5;
+  --health-5: #466b36;
+  --health-5-soft: #e8f0e3;
+
+  /* ===== Semantic aliases ===== */
   --app-background: var(--background);
-  --sidebar-background: var(--background);
+  --main-background: var(--background-main);
+
+  --sidebar-background: var(--sidebar);
   --sidebar-border: var(--border-soft);
   --sidebar-text: var(--text);
-  --sidebar-text-muted: var(--text-muted);
+  --sidebar-text-muted: var(--text-secondary);
   --sidebar-active-bg: var(--primary);
-  --sidebar-active-text: var(--surface);
-  --sidebar-icon: var(--deep-green);
+  --sidebar-active-text: var(--surface-strong);
+  --sidebar-icon: var(--text-secondary);
+
   --card-background: var(--surface);
+  --card-strong-background: var(--surface-strong);
   --card-muted-background: var(--surface-muted);
-  --selected-background: var(--surface-sage);
-  --primary-foreground: var(--surface);
-  --focus-ring: var(--secondary-green);
-  --destructive: var(--health-1);
-  --event-water: var(--secondary-green);
-  --event-fertilize: var(--warm-accent);
-  --event-repot: var(--primary);
-  --event-custom: var(--text-muted);
+  --selected-background: var(--surface-sage-active);
 
-  /* ===== Radius scale (design.md §10) ===== */
-  --radius: 0.625rem; /* 10px — input/button */
-  --radius-card: 1rem; /* 16px — standard card */
-  --radius-card-lg: 1.25rem; /* 20px — large card / modal */
+  --primary-foreground: var(--surface-strong);
+  --focus-ring: var(--primary);
+  --destructive: var(--danger);
+  --destructive-foreground: var(--surface-strong);
 
-  /* ===== shadcn bridge — НЕТ в design-tokens.css, добавлено для совместимости с shadcn/ui ===== */
+  /* Event aliases use only colors from the canonical palette. */
+  --event-water: var(--water);
+  --event-fertilize: var(--secondary-green);
+  --event-repot: var(--deep-green);
+  --event-custom: var(--warm-accent);
+
+  /* ===== Radius scale ===== */
+  --radius: 0.75rem; /* 12px â€” shadcn base / controls */
+  --radius-chip: 0.5rem; /* 8px */
+  --radius-control: 0.75rem; /* 12px */
+  --radius-compact: 0.875rem; /* 14px */
+  --radius-card: 1rem; /* 16px */
+  --radius-card-lg: 1.25rem; /* 20px */
+  --radius-hero: 1.5rem; /* 24px */
+  --radius-pill: 999px;
+
+  /* ===== Layout ===== */
+  --sidebar-width: 256px;
+  --content-max-width: 1200px;
+  --page-gutter: 16px;
+  --page-padding-x: 16px;
+  --page-padding-top: 20px;
+  --page-padding-bottom: 96px;
+  --section-gap: 32px;
+  --card-gap: 16px;
+
+  /* ===== Component sizes â€” mobile-first ===== */
+  --height-input: 48px;
+  --height-select: 48px;
+  --height-button: 48px;
+  --height-button-sm: 40px;
+  --height-icon-button: 44px;
+  --height-search: 52px;
+  --height-tabs: 52px;
+  --height-sidebar-nav: 52px;
+  --height-bottom-nav: 64px;
+  --size-central-action: 64px;
+  --min-height-stat-card: 128px;
+  --min-height-textarea: 136px;
+
+  /* ===== Motion ===== */
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+
+  /* ===== shadcn/ui bridge ===== */
   --foreground: var(--text);
   --card: var(--card-background);
   --card-foreground: var(--text);
-  --popover: var(--card-background);
+  --popover: var(--surface);
   --popover-foreground: var(--text);
-  --secondary: var(--selected-background);
+  --secondary: var(--surface-sage);
   --secondary-foreground: var(--text);
-  --muted: var(--card-muted-background);
+  --muted: var(--surface-muted);
   --muted-foreground: var(--text-muted);
-  --accent: var(--selected-background);
+  --accent: var(--surface-sage-active);
   --accent-foreground: var(--text);
-  --destructive-foreground: var(--surface);
   --input: var(--border);
   --ring: var(--focus-ring);
 }
 
-.dark {
-  /* ===== Sage Nature — Dark (design-tokens.css) ===== */
-  --background: #151b16;
-  --surface: #1d261e;
-  --surface-muted: #232d24;
-  --surface-sage: #2e3b2f;
-  --border: #354136;
-  --border-soft: #2b352c;
-  --text: #f1f0e8;
-  --text-muted: #aab1a5;
-  --primary: #91a96e;
-  --primary-hover: #a2b87f;
-  --primary-soft: #35452f;
-  --secondary-green: #6e8662;
-  --warm-accent: #d0ab68;
+@media (min-width: 1024px) {
+  :root {
+    --page-padding-x: 32px;
+    --page-padding-top: 32px;
+    --page-padding-bottom: 48px;
+    --card-gap: 20px;
 
-  --app-background: var(--background);
-  --sidebar-background: var(--background);
-  --sidebar-border: var(--border-soft);
-  --sidebar-text: var(--text);
-  --sidebar-text-muted: var(--text-muted);
-  --sidebar-active-bg: var(--surface-sage);
-  --sidebar-active-text: var(--text);
-  --sidebar-icon: var(--primary);
-  --card-background: var(--surface);
-  --card-muted-background: var(--surface-muted);
-  --selected-background: var(--surface-sage);
-  --primary-foreground: var(--background);
-  --focus-ring: var(--secondary-green);
-  --destructive: var(--health-1);
-  --event-water: var(--secondary-green);
-  --event-fertilize: var(--warm-accent);
-  --event-repot: var(--primary);
-  --event-custom: var(--text-muted);
+    --height-input: 44px;
+    --height-select: 44px;
+    --height-button: 44px;
+    --height-button-sm: 36px;
+    --height-icon-button: 40px;
+    --height-search: 48px;
+    --height-tabs: 48px;
+    --min-height-stat-card: 116px;
+    --min-height-textarea: 120px;
+  }
+}
 
-  --foreground: var(--text);
-  --card: var(--card-background);
-  --card-foreground: var(--text);
-  --popover: var(--card-background);
-  --popover-foreground: var(--text);
-  --secondary: var(--selected-background);
-  --secondary-foreground: var(--text);
-  --muted: var(--card-muted-background);
-  --muted-foreground: var(--text-muted);
-  --accent: var(--selected-background);
-  --accent-foreground: var(--text);
-  --destructive-foreground: var(--text);
-  --input: var(--border);
-  --ring: var(--focus-ring);
+@media (min-width: 1280px) {
+  :root {
+    --page-padding-x: 40px;
+  }
 }
 
 @theme inline {
-  --font-sans: "InterVariable", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Lora", ui-serif, serif;
+  --font-sans: "Inter Variable", "Inter", Arial, sans-serif;
+  --font-serif: "Lora", Georgia, serif;
 
-  /* базовые токены → bg-background, text-text, bg-surface... */
+  /* ===== Canonical palette ===== */
   --color-background: var(--background);
+  --color-background-main: var(--background-main);
+  --color-sidebar: var(--sidebar);
   --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
   --color-surface-muted: var(--surface-muted);
   --color-surface-sage: var(--surface-sage);
+  --color-surface-sage-active: var(--surface-sage-active);
   --color-border: var(--border);
   --color-border-soft: var(--border-soft);
   --color-text: var(--text);
+  --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-muted);
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
+  --color-primary-pressed: var(--primary-pressed);
   --color-primary-soft: var(--primary-soft);
-  --color-secondary-green: var(--secondary-green);
   --color-deep-green: var(--deep-green);
+  --color-secondary-green: var(--secondary-green);
+  --color-water: var(--water);
   --color-warm-accent: var(--warm-accent);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-overlay: var(--overlay);
 
-  /* health-цвета → bg-health-1 ... bg-health-5 */
+  /* ===== Health ===== */
   --color-health-1: var(--health-1);
+  --color-health-1-soft: var(--health-1-soft);
   --color-health-2: var(--health-2);
+  --color-health-2-soft: var(--health-2-soft);
   --color-health-3: var(--health-3);
+  --color-health-3-soft: var(--health-3-soft);
   --color-health-4: var(--health-4);
+  --color-health-4-soft: var(--health-4-soft);
   --color-health-5: var(--health-5);
+  --color-health-5-soft: var(--health-5-soft);
 
-  /* semantic-токены → bg-sidebar-active-bg, text-sidebar-text, bg-card-background... */
+  /* ===== Semantic tokens ===== */
   --color-app-background: var(--app-background);
+  --color-main-background: var(--main-background);
   --color-sidebar-background: var(--sidebar-background);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-text: var(--sidebar-text);
@@ -158,19 +206,21 @@
   --color-sidebar-active-text: var(--sidebar-active-text);
   --color-sidebar-icon: var(--sidebar-icon);
   --color-card-background: var(--card-background);
+  --color-card-strong-background: var(--card-strong-background);
   --color-card-muted-background: var(--card-muted-background);
   --color-selected-background: var(--selected-background);
   --color-primary-foreground: var(--primary-foreground);
   --color-focus-ring: var(--focus-ring);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
 
-  /* event-цвета → bg-event-water, text-event-fertilize... */
+  /* ===== Event colors ===== */
   --color-event-water: var(--event-water);
   --color-event-fertilize: var(--event-fertilize);
   --color-event-repot: var(--event-repot);
   --color-event-custom: var(--event-custom);
 
-  /* shadcn bridge → bg-card, bg-popover, bg-muted, bg-accent, border-input, ring-ring */
+  /* ===== shadcn/ui ===== */
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -178,105 +228,179 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
+  --color-muted: var(--text-muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-destructive-foreground: var(--destructive-foreground);
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* radius: rounded-sm...rounded-2xl */
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: var(--radius-card);
-  --radius-2xl: var(--radius-card-lg);
+  /* ===== Radius ===== */
+  --radius-sm: var(--radius-chip); /* 8px */
+  --radius-md: var(--radius-control); /* 12px */
+  --radius-lg: var(--radius-compact); /* 14px */
+  --radius-xl: var(--radius-card); /* 16px */
+  --radius-2xl: var(--radius-card-lg); /* 20px */
+  --radius-3xl: var(--radius-hero); /* 24px */
+  --radius-full: var(--radius-pill);
 
-  /* тени (design.md §11) */
+  /* ===== Shadows ===== */
   --shadow-card:
-    0 1px 2px rgba(30, 40, 28, 0.04), 0 6px 18px rgba(30, 40, 28, 0.05);
-  --shadow-floating: 0 8px 30px rgba(30, 40, 28, 0.1);
-
-  /* z-index (design.md §47) */
-  --z-index-base: 0;
-  --z-index-sticky: 20;
-  --z-index-bottom-nav: 30;
-  --z-index-dropdown: 40;
-  --z-index-sheet: 50;
-  --z-index-modal: 60;
-  --z-index-toast: 70;
+    0 1px 2px rgba(37, 40, 32, 0.025), 0 8px 24px rgba(37, 40, 32, 0.045);
+  --shadow-floating: 0 12px 32px rgba(37, 40, 32, 0.12);
 }
 
 @layer base {
   * {
     @apply border-border;
   }
+
+  html {
+    color-scheme: light;
+  }
+
   body {
-    @apply bg-background text-text font-sans;
+    @apply bg-background text-text font-sans antialiased;
+    min-height: 100dvh;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
   }
 }
 
 @layer utilities {
+  /* ===== Editorial typography: Lora ===== */
   .text-display {
-    font-size: 36px;
-    line-height: 44px;
-    font-weight: 600;
+    font-family: var(--font-serif);
+    font-size: 30px;
+    line-height: 38px;
+    font-weight: 500;
   }
+
   .text-h1 {
-    font-size: 32px;
-    line-height: 40px;
-    font-weight: 600;
+    font-family: var(--font-serif);
+    font-size: 30px;
+    line-height: 38px;
+    font-weight: 500;
   }
+
   .text-h2 {
+    font-family: var(--font-serif);
     font-size: 24px;
     line-height: 32px;
-    font-weight: 600;
+    font-weight: 500;
   }
+
   .text-h3 {
+    font-family: var(--font-serif);
     font-size: 20px;
     line-height: 28px;
+    font-weight: 500;
+  }
+
+  /* ===== UI typography: Inter ===== */
+  .text-ui-heading {
+    font-family: var(--font-sans);
+    font-size: 18px;
+    line-height: 26px;
     font-weight: 600;
   }
+
   .text-body-lg {
+    font-family: var(--font-sans);
     font-size: 18px;
     line-height: 28px;
     font-weight: 400;
   }
+
   .text-body {
+    font-family: var(--font-sans);
     font-size: 16px;
     line-height: 24px;
     font-weight: 400;
   }
+
   .text-body-md {
+    font-family: var(--font-sans);
     font-size: 16px;
     line-height: 24px;
     font-weight: 500;
   }
+
   .text-small {
+    font-family: var(--font-sans);
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
   }
+
   .text-small-md {
+    font-family: var(--font-sans);
     font-size: 14px;
     line-height: 20px;
     font-weight: 500;
   }
+
   .text-caption {
+    font-family: var(--font-sans);
     font-size: 12px;
     line-height: 16px;
     font-weight: 400;
   }
 
-  @media (max-width: 767px) {
+  /* ===== Common layout helpers ===== */
+  .page-container {
+    width: 100%;
+    max-width: var(--content-max-width);
+    margin-inline: auto;
+    padding-inline: var(--page-padding-x);
+    padding-top: var(--page-padding-top);
+    padding-bottom: var(--page-padding-bottom);
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  @media (min-width: 768px) {
+    .text-display {
+      font-size: 40px;
+      line-height: 48px;
+    }
+
     .text-h1 {
-      font-size: 28px;
-      line-height: 36px;
+      font-size: 34px;
+      line-height: 42px;
     }
+
     .text-h2 {
-      font-size: 22px;
-      line-height: 30px;
+      font-size: 26px;
+      line-height: 34px;
     }
+
+    .text-ui-heading {
+      font-size: 20px;
+      line-height: 28px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
