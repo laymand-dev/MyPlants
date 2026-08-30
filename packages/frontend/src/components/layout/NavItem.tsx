@@ -7,11 +7,18 @@ type NavItemProps = {
   label: string;
 };
 
+const DASHBOARD_PATHS = ["/create-plant", "/edit-plant", "/"];
+
 export function NavItem({ to, Icon, label }: NavItemProps) {
   const location = useLocation();
 
   const handleItemClick = () => {};
-  const isCurrentPath = useMemo(() => location.pathname === to, [location, to]);
+  const isCurrentPath = useMemo(
+    () =>
+      location.pathname === to ||
+      (to === "/" && DASHBOARD_PATHS.includes(location.pathname)),
+    [location, to],
+  );
 
   return (
     <div

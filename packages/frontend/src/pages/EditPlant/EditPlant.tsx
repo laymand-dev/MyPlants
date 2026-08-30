@@ -1,13 +1,22 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CreatePlantDto, type CreatePlantDtoInput } from "@myplants/shared";
+import {
+  CreatePlantDto,
+  Plant,
+  type CreatePlantDtoInput,
+} from "@myplants/shared";
 import { Button } from "@/components/ui/button";
 import { Sprout } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { useNavigate } from "react-router";
+import { useLoaderData, useNavigate } from "react-router";
 
-export function CreatePlantPage() {
+interface PlantLoader {
+  plant: Plant;
+}
+
+export function EditPlantPage() {
   const navigate = useNavigate();
+  const { plant } = useLoaderData<PlantLoader>();
 
   const {
     register,
@@ -15,6 +24,14 @@ export function CreatePlantPage() {
     formState: { errors, isSubmitting },
   } = useForm<CreatePlantDtoInput, unknown, CreatePlantDto>({
     resolver: zodResolver(CreatePlantDto),
+    defaultValues: plant
+      ? {
+          name: plant.name,
+          species: plant.species,
+          acquiredAt: plant.acquiredAt,
+          placedAt: plant.placedAt,
+        }
+      : {},
   });
 
   const handleGoBack = () => {
@@ -22,7 +39,9 @@ export function CreatePlantPage() {
   };
 
   const onSubmit = async (data: CreatePlantDto) => {
-    const res = await fetch("http://localhost:3000/api/plants", {
+    if (!plant) return;
+
+    const res = await fetch(`http://localhost:3000/api/plants/${plant.id}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
@@ -38,7 +57,7 @@ export function CreatePlantPage() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <p className="text-h1 mb-2">Добавить растение</p>
+      <p className="text-h1 mb-2">Редактировать растение</p>
       <p className="text-muted mb-6">
         Заполни основные данные о твоем растении
       </p>
@@ -88,7 +107,7 @@ export function CreatePlantPage() {
         <div className="grid grid-cols-2 gap-15 justify-between">
           <Button type="submit" disabled={isSubmitting}>
             <Sprout size={24} className="mx-3" />
-            {isSubmitting ? "Сохраняем…" : "Добавить растение"}
+            {isSubmitting ? "Сохраняем…" : "Изменить растение"}
           </Button>
           <Button
             variant="outline"
