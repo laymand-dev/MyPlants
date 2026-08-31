@@ -1,16 +1,11 @@
 {
   "plants": [
     {
-      "id": "0addf982-1068-4ab6-81fa-8a29aef395c7",
-      "name": "philodendrone",
-      "species": "ring of fire",
-      "createdAt": "2026-08-17T09:12:14.189Z"
-    },
-    {
-      "id": "1729b197-9625-4b75-bbd7-9d631a5b90dd",
-      "name": "monstera",
-      "species": "deliciosa (деликатесная)",
-      "createdAt": "2026-08-17T09:46:28.751Z"
+      "id": "aaa24c44-6ce9-4e33-b763-40429b82fddf",
+      "name": "Monstera deliciosa",
+      "species": "Monstera",
+      "acquiredAt": "2024-07-02T00:00:00.000Z",
+      "createdAt": "2026-08-21T08:03:21.015Z"
     }
   ]
 }
