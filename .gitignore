@@ -2,4 +2,6 @@ node_modules/
 dist/
 build/
 .env
-.DS_Store
+
+# macOS
+**/.DS_Store
