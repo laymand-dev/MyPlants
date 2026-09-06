@@ -36,49 +36,75 @@ app.get("/api/plants", (req, res) => {
   res.send(JSON.stringify(data.get("plants")));
 });
 
-app.post(
-  "/api/plants",
-  validateBody(CreatePlantDto),
-  (req: Request<{ id: string }>, res) => {
-    const plantsData = data.get("plants");
+app.get(
+  "/api/plants/:plantId",
+  (req: Request<{ plantId: string }>, res: Response) => {
+    const plantId = req.params.plantId;
+    const plant = data.get("plants")?.find((plant) => plant.id === plantId);
+    if (plant) {
+      res.send(JSON.stringify(plant));
+    } else {
+      res.send(JSON.stringify("Plant is not found"));
+    }
+  },
+);
 
-    if (!plantsData) {
+app.post(
+  "/api/plants/:plantId",
+  validateBody(CreatePlantDto),
+  (req: Request<{ plantId: string }>, res) => {
+    if (!data.get("plants")) {
       data.set("plants", []);
     }
-    console.log(req.params);
 
-    const plantById = plantsData?.find((plant) => plant.id === req.params.id);
+    const plantsData = data.get("plants");
+    const plantById = plantsData?.find(
+      (plant) => plant.id === req.params.plantId,
+    );
+
     if (plantById && plantsData) {
-      const plantIndex = plantsData?.findIndex((el) => el.id === req.params.id);
+      const plantIndex = plantsData?.findIndex(
+        (el) => el.id === req.params.plantId,
+      );
+      console.log(plantsData, plantIndex, "<-plantIndex");
 
-      if (!plantIndex) {
+      if (plantIndex == -1) {
         return;
       }
 
       plantsData[plantIndex] = {
         ...plantById,
         name: req.body.name ?? plantById.name,
-        species: req.body.species ?? plantById.name,
-        placedAt: req.body.palcedAt ?? plantById.name,
-        acquiredAt: req.body.acquiredAt ?? plantById.name,
+        species: req.body.species ?? plantById.species,
+        placedAt: req.body.placedAt ?? plantById.placedAt,
+        acquiredAt: req.body.acquiredAt ?? plantById.acquiredAt,
       };
       res.send(JSON.stringify(data.get("plants")));
     } else {
-      const plantId = uuidv4();
-      plantsData?.push({
-        id: plantId,
-        name: req.body.name,
-        species: req.body.species,
-        placedAt: req.body.palcedAt,
-        acquiredAt: req.body.acquiredAt,
-        // TODO: add photo upload later
-        // coverPhotoId: z.uuid().optional(),
-        createdAt: new Date(),
-      });
-      res.send(JSON.stringify(plantsData));
+      res.send(JSON.stringify("Растение не найдено"));
     }
   },
 );
+
+app.post("/api/plants/", validateBody(CreatePlantDto), (req, res) => {
+  if (!data.get("plants")) {
+    data.set("plants", []);
+  }
+
+  const plantsData = data.get("plants");
+  const plantId = uuidv4();
+  plantsData?.push({
+    id: plantId,
+    name: req.body.name,
+    species: req.body.species,
+    placedAt: req.body.placedAt,
+    acquiredAt: req.body.acquiredAt,
+    // TODO: add photo upload later
+    // coverPhotoId: z.uuid().optional(),
+    createdAt: new Date(),
+  });
+  res.send(JSON.stringify(plantsData));
+});
 
 app.delete("/api/plants/:id", (req: Request<{ id: string }>, res: Response) => {
   const plants = data.get("plants");

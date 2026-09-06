@@ -7,6 +7,9 @@ import "./index.css";
 import App from "./App.tsx";
 import { DashboardPage } from "@/pages/Dashboard/Deashboard";
 import { CreatePlantPage } from "@/pages/CreatePlant/CreatePlant";
+import { EditPlantPage } from "@/pages/EditPlant/EditPlant.tsx";
+import { fetchPlant } from "./lib/utils.ts";
+import { PlantPage } from "./pages/Plant/Plant.tsx";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +18,16 @@ const router = createBrowserRouter([
     children: [
       { index: true, Component: DashboardPage },
       { path: "create-plant", Component: CreatePlantPage },
+      {
+        path: "edit-plant/:plantId",
+        loader: async ({ params }) => {
+          if (!params.plantId) return undefined;
+          const plant = await fetchPlant(params.plantId);
+
+          return { plant };
+        },
+        Component: EditPlantPage,
+      },
       { path: "notifications", Component: CreatePlantPage },
       { path: "settings", Component: CreatePlantPage },
       { path: "plants", Component: CreatePlantPage },
@@ -22,10 +35,12 @@ const router = createBrowserRouter([
       {
         path: "plant/:plantId",
         loader: async ({ params }) => {
-          // const plant = await fetchPlant(params.plantId);
-          // return { plant };
+          if (!params.plantId) return undefined;
+          const plant = await fetchPlant(params.plantId);
+
+          return { plant };
         },
-        Component: CreatePlantPage,
+        Component: PlantPage,
       },
     ],
   },
@@ -33,6 +48,6 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />,
+    <RouterProvider router={router} />
   </StrictMode>,
 );
