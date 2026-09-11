@@ -1,41 +1,31 @@
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, type MouseEvent } from "react";
 import { Plant } from "@myplants/shared";
 import { Button } from "@/components/ui/button";
-import plantCover from "@/assets/plant-1.png";
 import { PlantCard } from "./PlantCard/PlantCard";
 import { ArrowRight, PlusCircle } from "lucide-react";
 import { NavLink, useNavigate } from "react-router";
+import { usePlantStore } from "@/stores/plant/plant.store";
+import {
+  selectPlants,
+  selectGetPlants,
+  selectDeletePlant,
+} from "@/stores/plant/plant.selectors";
 
 export function DashboardPage() {
-  const [plants, setPlants] = useState<Plant[]>([]);
+  const plants = usePlantStore(selectPlants)?.slice(0, 5);
+  const getPlants = usePlantStore(selectGetPlants);
+  const deletePlants = usePlantStore(selectDeletePlant);
 
   const navigate = useNavigate();
-
-  const fetchPlants = async () => {
-    try {
-      const plantsJson = await fetch("http://localhost:3000/api/plants");
-      const data: Plant[] = await plantsJson.json();
-      setPlants(
-        data.map((plant) => ({ ...plant, photo: plantCover })).slice(0, 5),
-      );
-    } catch (error) {
-      console.log(error, "ERORR");
-    }
-  };
 
   const handlePlantCardDelete = async (e: MouseEvent, plant: Plant) => {
     e.stopPropagation();
 
-    const plantsJson = await fetch(
-      `http://localhost:3000/api/plants/${plant.id}`,
-      { method: "DELETE" },
-    );
-    const data = await plantsJson.json();
-    setPlants(data);
+    deletePlants(plant);
   };
 
   useEffect(() => {
-    fetchPlants();
+    getPlants();
   }, []);
 
   const handlePlantCardClick = (plant: Plant) => {

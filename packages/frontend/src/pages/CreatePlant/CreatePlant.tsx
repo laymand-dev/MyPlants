@@ -5,8 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Sprout } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useNavigate } from "react-router";
+import { usePlantStore } from "@/stores/plant/plant.store";
+import { selectAddPlant } from "@/stores/plant/plant.selectors";
 
 export function CreatePlantPage() {
+  const addPlant = usePlantStore(selectAddPlant);
   const navigate = useNavigate();
 
   const {
@@ -22,17 +25,7 @@ export function CreatePlantPage() {
   };
 
   const onSubmit = async (data: CreatePlantDto) => {
-    const res = await fetch("http://localhost:3000/api/plants", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-
-    if (!res.ok) {
-      console.error("Не удалось создать растение");
-      return;
-    }
-
+    addPlant(data);
     handleGoBack();
   };
 

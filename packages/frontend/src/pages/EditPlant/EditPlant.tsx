@@ -9,12 +9,16 @@ import { Button } from "@/components/ui/button";
 import { Sprout } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useLoaderData, useNavigate } from "react-router";
+import { usePlantStore } from "@/stores/plant/plant.store";
+import { selectEditPlant } from "@/stores/plant/plant.selectors";
 
 interface PlantLoader {
   plant: Plant;
 }
 
 export function EditPlantPage() {
+  const editPlant = usePlantStore(selectEditPlant);
+
   const navigate = useNavigate();
   const { plant } = useLoaderData<PlantLoader>();
 
@@ -41,16 +45,7 @@ export function EditPlantPage() {
   const onSubmit = async (data: CreatePlantDto) => {
     if (!plant) return;
 
-    const res = await fetch(`http://localhost:3000/api/plants/${plant.id}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
-    });
-
-    if (!res.ok) {
-      console.error("Не удалось создать растение");
-      return;
-    }
+    editPlant({ ...data, id: plant.id });
 
     handleGoBack();
   };

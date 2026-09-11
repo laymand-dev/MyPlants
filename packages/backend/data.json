@@ -1,11 +1,11 @@
 {
   "plants": [
     {
-      "id": "aaa24c44-6ce9-4e33-b763-40429b82fddf",
+      "id": "f7f63448-0a28-42ef-948f-774746a6ba0c",
       "name": "Monstera deliciosa",
       "species": "Monstera",
-      "acquiredAt": "2024-07-02T00:00:00.000Z",
-      "createdAt": "2026-08-21T08:03:21.015Z"
+      "placedAt": "Зал",
+      "createdAt": "2026-09-11T16:58:21.737Z"
     }
   ]
 }

@@ -66,7 +66,6 @@ app.post(
       const plantIndex = plantsData?.findIndex(
         (el) => el.id === req.params.plantId,
       );
-      console.log(plantsData, plantIndex, "<-plantIndex");
 
       if (plantIndex == -1) {
         return;

@@ -8,8 +8,8 @@ import App from "./App.tsx";
 import { DashboardPage } from "@/pages/Dashboard/Deashboard";
 import { CreatePlantPage } from "@/pages/CreatePlant/CreatePlant";
 import { EditPlantPage } from "@/pages/EditPlant/EditPlant.tsx";
-import { fetchPlant } from "./lib/utils.ts";
 import { PlantPage } from "./pages/Plant/Plant.tsx";
+import { fetchPlant } from "./stores/plant/api/plants.api.ts";
 
 const router = createBrowserRouter([
   {
